@@ -3,6 +3,10 @@ package com.example.app1121
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.app1121.data.dp.Book
+import com.example.app1121.data.dp.BookRepository
+import com.example.app1121.data.dp.dp.Database
+import com.example.app1121.utils.ProvideRepositoryFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,9 +27,10 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            //有内容了
-            val content = "${mTextView.text}\n\n ${mNameEditText.text}-${mAuthorEditText.text}"
-            mTextView.text = content
+            //数据保存到本地的数据库
+            val book  = Book(mNameEditText.text.toString(),mAuthorEditText.text.toString())
+            val repository = ProvideRepositoryFactory.getRepository()
+            repository.addBook(book)
         }
     }
 }
